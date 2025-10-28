@@ -1,0 +1,316 @@
+:root {
+    --primary-blue: #007bff;
+    --primary-dark: #343a40;
+    --light-gray: #f8f9fa;
+    --border-color: #ced4da;
+    --success-color: #28a745;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-gray);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+.checkout-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.checkout-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+}
+
+/* --- Step Indicator (Stepper) Styles --- */
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 0 10px;
+    position: relative;
+}
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background-color: var(--border-color);
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    z-index: 1;
+}
+
+.step-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid var(--border-color);
+    color: var(--primary-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.step-label {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
+    text-align: center;
+}
+
+/* Active and Completed Step Styling */
+.step.active .step-icon {
+    border-color: var(--primary-blue);
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.step.completed .step-icon {
+    border-color: var(--success-color);
+    background-color: var(--success-color);
+    color: white;
+    font-size: 1.1rem;
+    content: "✓";
+    /* Checkmark replacement */
+}
+
+.step.completed .step-icon::before {
+    content: '✓';
+}
+
+.step:not(.completed):not(.active) .step-icon {
+    background-color: var(--light-gray);
+}
+
+/* Custom content for checkmark on completed steps */
+.step.completed .step-icon>* {
+    display: none;
+}
+
+/* --- Form/Content Styles --- */
+.step-content {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    min-height: 250px;
+}
+
+.content-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--primary-dark);
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 1px var(--primary-blue);
+}
+
+/* Full width inputs */
+.form-group.full-width {
+    flex: 100%;
+}
+
+.form-group.full-width input {
+    width: 100%;
+}
+
+/* --- Review Order Styles (Step 3) --- */
+.order-summary {
+    margin-bottom: 30px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.summary-item:last-of-type {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+.summary-value {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.summary-value.total {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.payment-details-review {
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.review-group h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.review-group p {
+    font-size: 0.95rem;
+    margin: 5px 0;
+    color: #495057;
+}
+
+.review-group span {
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+/* Error/Message Box */
+.message-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+
+.message-box.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+
+/* --- Button Group Styles --- */
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-back {
+    background-color: var(--border-color);
+    color: var(--primary-dark);
+}
+
+.btn-back:hover {
+    background-color: #c0c6cc;
+}
+
+.btn-next,
+.btn-place-order {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.btn-next:hover,
+.btn-place-order:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+
+    .form-row,
+    .payment-details-review {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .checkout-container {
+        padding: 20px;
+    }
+
+    .stepper::before {
+        display: none;
+        /* Hide connector lines on small screens */
+    }
+
+    .stepper {
+        flex-wrap: wrap;
+    }
+
+    .step {
+        flex: 0 0 33.33%;
+        margin-bottom: 15px;
+    }
+}

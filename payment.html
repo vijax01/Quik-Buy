@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwikbuy.in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./styles/paymentPage.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <h2 class="checkout-header">Checkout</h2>
+
+        <!-- Step Indicator -->
+        <div class="stepper">
+            <div id="step-1" class="step active">
+                <div class="step-icon">1</div>
+                <div class="step-label">Shipping Address</div>
+            </div>
+            <div id="step-2" class="step">
+                <div class="step-icon">2</div>
+                <div class="step-label">Payment Details</div>
+            </div>
+            <div id="step-3" class="step">
+                <div class="step-icon">3</div>
+                <div class="step-label">Review Order</div>
+            </div>
+        </div>
+        
+        <!-- Global Message Box for Errors/Success -->
+        <div id="message-box" class="message-box" style="display: none;"></div>
+
+        <!-- 1. Shipping Address Section -->
+        <div id="section-1" class="step-content">
+            <h3 class="content-title">Shipping Address</h3>
+            
+            <form id="address-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="firstName" placeholder="First Name *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="lastName" placeholder="Last Name *" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <input type="text" id="address1" placeholder="Address Line 1 *" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <input type="text" id="address2" placeholder="Address Line 2">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="city" placeholder="City *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="zipcode" placeholder="Zipcode/Pincode *" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <input type="text" id="country" placeholder="Country *" required>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="button-group">
+                <!-- No BACK button on first step -->
+                <button class="btn btn-next" onclick="nextStep()">NEXT</button>
+            </div>
+        </div>
+
+        <!-- 2. Checkout Card Details Section -->
+        <div id="section-2" class="step-content" style="display: none;">
+            <h3 class="content-title">Payment Method</h3>
+
+            <form id="payment-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="cardName" placeholder="Name on card *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="cardNumber" placeholder="Card Number *" required pattern="\d{13,16}" title="Card number must be 13 to 16 digits">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="expiryDate" placeholder="Expiry Date (MM/YY) *" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Format: MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="cvv" placeholder="CVV *" required pattern="\d{3,4}" title="CVV must be 3 or 4 digits">
+                    </div>
+                </div>
+            </form>
+            
+            <div class="button-group">
+                <button class="btn btn-back" onclick="prevStep()">BACK</button>
+                <button class="btn btn-next" onclick="nextStep()">NEXT</button>
+            </div>
+        </div>
+
+        <!-- 3. Review Order Section -->
+        <div id="section-3" class="step-content" style="display: none;">
+            <h3 class="content-title">Order Summary</h3>
+
+            <div class="order-summary">
+                <div class="summary-item">
+                    <div class="product-list summary-label">Look and Love Women's Removable Hooded Faux Leather Moto Biker Jacket</div>
+                    <div class="summary-value total-price">$29.95</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label total-quantity">Qty: 1</div>
+                    <div class="summary-value"></div>
+                </div>
+                <div class="summary-item" style="border-top: 1px solid #ddd; margin-top: 10px;">
+                    <div class="summary-label">Shipping</div>
+                    <div class="summary-value">FREE</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label total">Total</div>
+                    <div class="summary-value total final-price">$29.95</div>
+                </div>
+            </div>
+
+            <div class="payment-details-review">
+                <div class="review-group" style="flex: 1;">
+                    <h4>Shipping Address</h4>
+                    <p id="review-address"></p>
+                </div>
+                <div class="review-group" style="flex: 1;">
+                    <h4>Payment Details</h4>
+                    <p>Card Holder: <span id="review-card-name"></span></p>
+                    <p>Card Number: <span id="review-card-number"></span></p>
+                    <p>Expiry Date: <span id="review-card-expiry"></span></p>
+                    <p>CVV: <span id="review-card-cvv"></span></p>
+                </div>
+            </div>
+            
+            <div class="button-group" id="review-button-group">
+                <button class="btn btn-back" onclick="prevStep()">BACK</button>
+                <button class="btn btn-place-order" onclick="placeOrder()">PLACE ORDER</button>
+            </div>
+        </div>
+    </div>
+    <script src="./javascript/paymentPage.js" ></script>
+</body>
+</html>
